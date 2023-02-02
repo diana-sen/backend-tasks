@@ -26,11 +26,32 @@ const setTask = asyncHandler(async(req,res) => {
 })
 
 const updateTask = asyncHandler(async(req,res) => {
-    res.status(200).json({message:`Task ${req.params.id} updated`})
+    //crate update task
+
+    const task = await Task.findById(req.params.id)
+    //validation
+    if(!task){
+        throw new Error('Task not found')
+    }
+
+    const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    res.status(200).json(updatedTask)
 })
 
 const deleteTask = asyncHandler(async(req,res) => {
-    res.status(200).json({message:`Task ${req.params.id} deleted`})
+    const task = await Task.findById(req.params.id)
+    //validation
+    if(!task){
+        throw new Error('Task not found')
+    }
+
+    //First way to delete
+    //const deleteTask = await Task.findByIdAndDelete(req.params.id)
+    //res.status(200).json(deleteTask)
+
+    //Second way to delete
+    await task.remove()
+    res.status(200).json(req.params.id)
 })
 
 module.exports = {
