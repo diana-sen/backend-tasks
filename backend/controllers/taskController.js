@@ -1,10 +1,10 @@
-//This is what will be in charge of what the Route is going to do
+asyncHandler = require('express-async-handler')  //add async handler
 
-const getTasks = (req,res) => {
+const getTasks = asyncHandler(async(req,res) => {
     res.status(200).json({message: 'Obtain Tasks'})
-}
+})
 
-const setTask = (req,res) => {
+const setTask = asyncHandler(async(req,res) => {
     //console.log(req.body)
 
     //Handling errors
@@ -14,15 +14,15 @@ const setTask = (req,res) => {
        throw new Error('Please provide a task description') 
     }
     res.status(201).json({message: 'Created Task'})
-}
+})
 
-const updateTask = (req,res) => {
+const updateTask = asyncHandler(async(req,res) => {
     res.status(200).json({message:`Task ${req.params.id} updated`})
-}
+})
 
-const deleteTask = (req,res) => {
+const deleteTask = asyncHandler(async(req,res) => {
     res.status(200).json({message:`Task ${req.params.id} deleted`})
-}
+})
 
 module.exports = {
     getTasks,
