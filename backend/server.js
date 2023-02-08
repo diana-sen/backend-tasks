@@ -17,6 +17,9 @@ app.use(express.urlencoded({extended:false}))
 //Creating endpoint root
 app.use('/api/tasks', require('./routes/tasksRoutes'))
 
+//Creating endpoint usersroutes
+app.use('/api/users', require('./routes/userRoutes'))
+
 app.use(errorHandler)//*** Test production and environment to see behaviour
 
 app.listen(port, ()=> console.log(`Server started on port ${port}`))
