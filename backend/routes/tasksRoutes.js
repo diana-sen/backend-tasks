@@ -2,10 +2,12 @@ const express = require('express')
 const router = express.Router()
 const { getTasks, setTask, updateTask, deleteTask } = require('../controllers/taskController')
 
+const { protect } = require('../middleware/authMiddleware')
+
 //tasks endpoints
 
-router.route('/').get(getTasks).post(setTask)
-router.route('/:id').delete(deleteTask).put(updateTask)
+router.route('/').get(protect, getTasks).post(protect, setTask)
+router.route('/:id').delete(protect, deleteTask).put(protect, updateTask)
 
 
 //router.get('/', getTasks)
